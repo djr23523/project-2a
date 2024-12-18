@@ -29,7 +29,7 @@ export class Project2a extends DDDSuper(I18NMixin(LitElement)) {
       base: 0,
       face: 0,
       leg: 0,
-      faceitem:0,
+      faceItem:0,
       hair: 0,
       pants: 0,
       ratio: 200,
@@ -37,9 +37,10 @@ export class Project2a extends DDDSuper(I18NMixin(LitElement)) {
       shirt: 0,
       hat: 0,
       skin: 0,
+      hatcolor: 0,
       fire: false,
       walking: false,
-
+      circle: false,
     };
     this._applySeedToSettings();
   }
@@ -154,9 +155,11 @@ export class Project2a extends DDDSuper(I18NMixin(LitElement)) {
       <div class= "">
         <rpg-character
           literalseed
+          accessories="${this.character.accessories}"
           base="${this.character.base}"
+          leg="${this.character.leg}"
           face="${this.character.face}"
-          faceitem="${this.character.faceitem}"
+          faceItem="${this.character.faceItem}"
           hair="${this.character.hair}"
           shirt="${this.character.shirt}"
           skin="${this.character.skin}"
@@ -185,7 +188,7 @@ export class Project2a extends DDDSuper(I18NMixin(LitElement)) {
           value="${this.character.hair}"
           min="0"
           max="9"
-          @input="${(e) => this._updateSetting('hair', parseInt(e.detail.value))}"
+          @input="${(e) => this._updateSetting('hair', parseInt(e.target.value))}"
         ></wired-input>
         <label for="base">Base:</label>
         <wired-input
@@ -193,7 +196,7 @@ export class Project2a extends DDDSuper(I18NMixin(LitElement)) {
           value="${this.character.base}"
           min="0"
           max="9"
-          @input="${(e) => this._updateSetting('base', parseInt(e.detail.value))}"
+          @input="${(e) => this._updateSetting('base', parseInt(e.target.value))}"
         ></wired-input>
         <label for="accessories">Accessories:</label>
         <wired-input
@@ -201,7 +204,7 @@ export class Project2a extends DDDSuper(I18NMixin(LitElement)) {
           value="${this.character.accessories}"
           min="0"
           max="9"
-          @input="${(e) => this._updateSetting('accessories', parseInt(e.detail.value))}"
+          @input="${(e) => this._updateSetting('accessories', parseInt(e.target.value))}"
         ></wired-input>
         <label for="face">Face:</label>
         <wired-input
@@ -209,7 +212,7 @@ export class Project2a extends DDDSuper(I18NMixin(LitElement)) {
           value="${this.character.face}"
           min="0"
           max="5"
-          @input="${(e) => this._updateSetting('face', parseInt(e.detail.value))}"
+          @input="${(e) => this._updateSetting('face', parseInt(e.target.value))}"
         ></wired-input>
         <label for="leg">Leg:</label>
         <wired-input
@@ -217,24 +220,24 @@ export class Project2a extends DDDSuper(I18NMixin(LitElement)) {
           value="${this.character.leg}"
           min="0"
           max="1"
-          @input="${(e) => this._updateSetting('leg', parseInt(e.detail.value))}"
+          @input="${(e) => this._updateSetting('leg', parseInt(e.target.value))}"
           class="${this.leg === 0 ? 'leg-disabled' : ''}" ?disabled="${this.leg === 0}"
         ></wired-input>
-        <label for="faceitem">Faceitem:</label>
+        <label for="faceItem">faceItem:</label>
         <wired-input
           type="number"
-          value="${this.character.faceitem}"
+          value="${this.character.faceItem}"
           min="0"
           max="9"
-          @input="${(e) => this._updateSetting('faceitem', parseInt(e.detail.value))}" 
-        ></wired-input>
+          @input="${(e) => this._updateSetting('faceItem', parseInt(e.target.value))}" 
+        ></wired-input>l
         <label for="pants">Pants:</label>
         <wired-input
           type="number"
           value="${this.character.pants}"
           min="0"
           max="9"
-          @input="${(e) => this._updateSetting('pants', parseInt(e.detail.value))}" 
+          @input="${(e) => this._updateSetting('pants', parseInt(e.target.value))}" 
         ></wired-input>
         <label for="shirt">Shirt:</label>
         <wired-input
@@ -242,7 +245,7 @@ export class Project2a extends DDDSuper(I18NMixin(LitElement)) {
           value="${this.character.shirt}"
           min="0"
           max="9"
-          @input="${(e) => this._updateSetting('shirt', parseInt(e.detail.value))}" 
+          @input="${(e) => this._updateSetting('shirt', parseInt(e.target.value))}" 
         ></wired-input>
         <label for="skin">Skin:</label>
         <wired-input
@@ -250,20 +253,20 @@ export class Project2a extends DDDSuper(I18NMixin(LitElement)) {
           value="${this.character.skin}"
           min="0"
           max="9"
-          @input="${(e) => this._updateSetting('skin', parseInt(e.detail.value))}" 
+          @input="${(e) => this._updateSetting('skin', parseInt(e.target.value))}" 
         ></wired-input>
         <label for="hatcolor">Hatcolor:</label>
         <wired-input
           type="number"
-          value="${this.character.hatcolor}"
+          value=${this.character.hatcolor}
           min="0"
           max="9"
-          @input="${(e) => this._updateSetting('hatcolor', parseInt(e.detail.value))}" 
+          @input="${(e) => this._updateSetting('hatcolor', parseInt(e.target.value))}" 
         ></wired-input>
         <label for="hat">Hat:</label>
         <wired-combo 
           .selected="${this.character.hat}"
-          @selected="${(e) => this._updateSetting('hat', e.detail.selected)}">
+          @selected="${(e) => this._updateSetting('hat', e.target.selected)}">
           <wired-item value="bunny">Bunny</wired-item>
           <wired-item value="coffee">Coffee</wired-item>
           <wired-item value="construction">Construction</wired-item>
@@ -282,7 +285,7 @@ export class Project2a extends DDDSuper(I18NMixin(LitElement)) {
             min="1" 
             max="3" 
             step=".5"
-            @change="${(e) => this._updateSetting('ratio', parseFloat(e.detail.value))}">
+            @change="${(e) => this._updateSetting('ratio', parseFloat(e.target.value))}">
           </wired-slider>
         <wired-checkbox
             ?checked="${this.character.fire}"
@@ -308,6 +311,10 @@ export class Project2a extends DDDSuper(I18NMixin(LitElement)) {
 _applySeedToSettings(){
     const seed = this.character.seed;
     const paddedSeed = seed.padStart(8, "0").slice(0, 8);
+    if (!/^\d+$/.test(paddedSeed)) {
+      console.error("Invalid seed:", paddedSeed);
+      return;
+    }    
     const values = paddedSeed.split("").map((v) => parseInt(v, 10));
   
     [
@@ -315,7 +322,7 @@ _applySeedToSettings(){
       this.character.base,
       this.character.leg,
       this.character.face,
-      this.character.faceitem,
+      this.character.faceItem,
       this.character.hair,
       this.character.pants,
       this.character.shirt,
@@ -331,9 +338,8 @@ _updateSetting(key, value) {
   this.requestUpdate();
 }
 _generateSeed() {
-  const { accessories,base, leg, face, faceitem, hair, pants, shirt, skin, hatcolor } = this.character;
-  this.character.seed = `${accessories}${base}${leg}${face}${faceitem}${hair}${pants}${shirt}${skin}${hatcolor}`;
-  this.requestUpdate();
+  const { accessories,base, leg, face, faceItem, hair, pants, shirt, skin, hatcolor } = this.character;
+  this.character.seed = `${accessories}${base}${leg}${face}${faceItem}${hair}${pants}${shirt}${skin}${hatcolor}`;
 }
 _generateLink() {
   const base = window.location.href.split("?")[0];
