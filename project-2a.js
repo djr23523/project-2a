@@ -119,10 +119,27 @@ export class Project2a extends DDDSuper(I18NMixin(LitElement)) {
           padding: var(--ddd-spacing-6);
           border-radius: 10px;
         }
+        .notification {
+          position: fixed;
+          bottom: var(--ddd-spacing-5);
+          right: var(--ddd-spacing-5);
+          background-color: var(--ddd-theme-default-green);
+          color: var(--ddd-theme-default-white);
+          padding: var(--ddd-spacing-2) var(--ddd-spacing-3);
+          border-radius: var(--ddd-spacing-1);
+          font-size: 14px;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+          opacity: 0;
+          transition: opacity 0.5s ease-in-out;
+          z-index: 1000;
+        }
       .leg-disabled {
           opacity: 0.4;
           pointer-events: none;
       }
+      .notification.show {
+          opacity: 1;
+        }
 
       
     `];
@@ -155,7 +172,7 @@ export class Project2a extends DDDSuper(I18NMixin(LitElement)) {
             <div><a href="https://github.com/haxtheweb/issues/issues/1414" target="blank">Issue</a></div>
         </div>
       </div>
-      <div class="">
+      <div class="inputs-panel">
         <label for="characterNameInput">Character Name:</label>
         <wired-input
           type="text"
@@ -285,6 +302,7 @@ export class Project2a extends DDDSuper(I18NMixin(LitElement)) {
       </div>
     </div>
   </div>
+  <div id="notification" class="notification"></div>
 </div>`;
   }
 _applySeedToSettings(){
@@ -313,7 +331,7 @@ _updateSetting(key, value) {
   this.requestUpdate();
 }
 _generateSeed() {
-  const { accessories,base, leg, face, faceitem, hair, pants, shirt, skin, hatcolor } = this.characterSettings;
+  const { accessories,base, leg, face, faceitem, hair, pants, shirt, skin, hatcolor } = this.character;
   this.character.seed = `${accessories}${base}${leg}${face}${faceitem}${hair}${pants}${shirt}${skin}${hatcolor}`;
   this.requestUpdate();
 }

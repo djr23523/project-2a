@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <base href="/">
   <meta charset="utf-8">
@@ -11,10 +10,11 @@
     :root, html, body {
       margin: 0;
       padding: 0;
+      color: var(--ddd-theme-default-text, #FFFFFF);
+      background-color: var(--ddd-theme-default-potentialMidnight);
+
     }
-    #demo {
-      margin: var(--ddd-spacing-2);
-    }
+    
     project-2a {
       margin: var(--ddd-spacing-2);
       border: var(--ddd-border-md);
@@ -23,11 +23,7 @@
     project-2a:hover {
       box-shadow: var(--ddd-boxShadow-sm);
     }
-    #example {
-      --project-2a-font-size: var(--ddd-font-size-l);
-      background-color: var(--ddd-accent-2);
-      color: var(--ddd-primary-17);
-    }
+    
   </style>
   <title>Create your own Character</title>
 </head>
@@ -40,5 +36,5 @@
     
   </div>
   <script type="module" src="./project-2a.js"></script>
-
+  <script type="module" src="https://cdn.hax.cloud/cdn/build/es6/node_modules/@haxtheweb/rpg-character/rpg-character.js"></script>
  
